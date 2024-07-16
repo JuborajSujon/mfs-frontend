@@ -1,14 +1,11 @@
 import { AiOutlineBars } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import logo from "../../../assets/logo.png";
 import useAuth from "../../../hooks/useAuth";
 
 const DashboardNav = ({ handleToggle }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
-
-  // TODO: Logout Handler
 
   const handleLogout = () => {
     localStorage.removeItem("access-token");
@@ -69,8 +66,8 @@ const DashboardNav = ({ handleToggle }) => {
                   className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-md dark:bg-slate-700 dark:text-slate-300 w-64">
                   <li>
                     <Link
-                      to="/dashboard/user-profile"
-                      className="hover:bg-orange-100 rounded-md">
+                      to="/dashboard"
+                      className="hover:bg-blue-100 rounded-md">
                       Profile
                     </Link>
                   </li>
@@ -78,7 +75,7 @@ const DashboardNav = ({ handleToggle }) => {
                   <li>
                     <button
                       onClick={handleLogout}
-                      className="hover:bg-orange-100 rounded-md">
+                      className="hover:bg-blue-100 rounded-md">
                       Logout
                     </button>
                   </li>

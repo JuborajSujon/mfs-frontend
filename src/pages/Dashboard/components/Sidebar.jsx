@@ -2,8 +2,8 @@ import { GrLogout } from "react-icons/gr";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
-import logo from "../../../assets/logo.png";
 import PropTypes from "prop-types";
+import { FaRegUser } from "react-icons/fa";
 
 const Sidebar = ({ handleToggle, isActive }) => {
   const { user, setLoading } = useAuth();
@@ -54,22 +54,65 @@ const Sidebar = ({ handleToggle, isActive }) => {
           {/* Nav Items */}
           <div className="flex flex-col justify-between flex-1">
             {/*  Menu Items */}
-            {user?.role === "admin" ? (
+            {user?.role === "admin" && user?.status === "active" && (
               <>
                 <nav>
-                  <li>Admin Dashboard</li>
+                  <NavLink
+                    to="/dashboard"
+                    end
+                    className={({ isActive }) =>
+                      `flex items-center px-4 py-2 my-2 transition-colors duration-300 transform hover:bg-blue-100 rounded-md hover:text-gray-700  dark:text-slate-300 ${
+                        isActive
+                          ? "border-l-8 bg-blue-100 border-l-blue-400 dark:text-slate-700 rounded-md"
+                          : "text-gray-700"
+                      }`
+                    }>
+                    <FaRegUser className="w-5 h-5" />
+
+                    <span className="mx-4 font-medium">User Profile</span>
+                  </NavLink>
                 </nav>
               </>
-            ) : user?.role === "user" ? (
+            )}
+
+            {user?.role === "user" && user?.status === "active" && (
               <>
                 <nav>
-                  <li>User Dashboard</li>
+                  <NavLink
+                    to="/dashboard"
+                    end
+                    className={({ isActive }) =>
+                      `flex items-center px-4 py-2 my-2 transition-colors duration-300 transform hover:bg-blue-100 rounded-md hover:text-gray-700  dark:text-slate-300 ${
+                        isActive
+                          ? "border-l-8 bg-blue-100 border-l-blue-400 dark:text-slate-700 rounded-md"
+                          : "text-gray-700"
+                      }`
+                    }>
+                    <FaRegUser className="w-5 h-5" />
+
+                    <span className="mx-4 font-medium">User Profile</span>
+                  </NavLink>
                 </nav>
               </>
-            ) : (
+            )}
+
+            {user?.role === "agent" && user?.status === "active" && (
               <>
                 <nav>
-                  <li>Agent Dashboard</li>
+                  <NavLink
+                    to="/dashboard"
+                    end
+                    className={({ isActive }) =>
+                      `flex items-center px-4 py-2 my-2 transition-colors duration-300 transform hover:bg-blue-100 rounded-md hover:text-gray-700  dark:text-slate-300 ${
+                        isActive
+                          ? "border-l-8 bg-blue-100 border-l-blue-400 dark:text-slate-700 rounded-md"
+                          : "text-gray-700"
+                      }`
+                    }>
+                    <FaRegUser className="w-5 h-5" />
+
+                    <span className="mx-4 font-medium">User Profile</span>
+                  </NavLink>
                 </nav>
               </>
             )}

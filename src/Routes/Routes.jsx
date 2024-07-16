@@ -4,6 +4,9 @@ import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import Login from "./../components/Login";
 import Register from "../components/Register";
 import Dashboard from "../Layout/Dashboard";
+import UserProfile from "../pages/Dashboard/UserProfile";
+
+// TODO: Dashboard Routes Protection
 
 export const router = createBrowserRouter([
   {
@@ -28,7 +31,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard",
-        element: <div>Dashboard Home</div>,
+        element: <UserProfile />,
       },
     ],
   },
