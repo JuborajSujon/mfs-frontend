@@ -11,7 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
-  const { setUser, loading, setLoading } = useAuth();
+  const { setUser, setLoading } = useAuth();
 
   const {
     register,
