@@ -7,12 +7,6 @@ import { Helmet } from "react-helmet-async";
 import axios from "axios";
 
 const Register = () => {
-  const [name, setName] = useState("");
-  const [pin, setPin] = useState("");
-  const [mobileNumber, setMobileNumber] = useState("");
-  const [email, setEmail] = useState("");
-  const [role, setRole] = useState("user");
-
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -26,12 +20,20 @@ const Register = () => {
   // Register Handler for create user , update user profile
   const onSubmit = async (data) => {
     try {
-      const { email, password, name, mobileNumber, role } = data;
+      const { email, password, name, phoneNumber, role } = data;
 
       const pin = parseInt(password);
+      const mobileNumber = parseInt(phoneNumber);
 
       if (!/^[0-9]{5}$/.test(pin)) {
         toast.error("PIN should be 5 digits only numbers", {
+          autoClose: 2000,
+        });
+        return;
+      }
+
+      if (!/^[0-9]{11}$/.test(mobileNumber)) {
+        toast.error("Mobile number should be 10 digits only numbers", {
           autoClose: 2000,
         });
         return;
@@ -43,15 +45,30 @@ const Register = () => {
         mobileNumber,
         pin,
         role,
+        lastLogin: new Date().getTime(),
         status: "pending",
+        balance: 0,
+        createdAt: new Date().getTime(),
       };
 
-      const result = await axios.post(
-        "http://localhost:5000/api/auth/register",
+      const result = await axios.put(
+        "http://localhost:5000/auth/register",
         userInfo
       );
-      if (result.status === 200) {
-        console.log(result.data);
+
+      if (!result.data.acknowledged) {
+        toast.error(result.data.message, {
+          autoClose: 1500,
+        });
+        return;
+      }
+
+      if (result.data.acknowledged) {
+        toast.success("Registered successfully", {
+          autoClose: 1500,
+        });
+        reset();
+        navigate("/");
       }
     } catch (error) {
       console.error(error.response.data.message);
@@ -125,13 +142,13 @@ const Register = () => {
                       Mobile Number
                     </label>
                     <input
-                      {...register("mobileNumber", { required: true })}
+                      {...register("phoneNumber", { required: true })}
                       id="mobileNo"
                       type="text"
                       className="w-full border-2 border-slate-100 p-1 rounded-md dark:bg-transparent dark:border-black/40 dark:text-slate-900 py-2 mt-3"
                       placeholder="Enter Your Mobile Number"
                     />
-                    {errors.mobileNumber && (
+                    {errors.phoneNumber && (
                       <span className="text-red-500">
                         Please enter a valid mobile number
                       </span>
