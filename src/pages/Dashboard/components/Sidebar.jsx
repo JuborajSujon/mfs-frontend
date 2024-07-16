@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import PropTypes from "prop-types";
-import { FaRegUser } from "react-icons/fa";
+import { FaRegUser, FaList, FaUserEdit } from "react-icons/fa";
 
 const Sidebar = ({ handleToggle, isActive }) => {
   const { user, setLoading } = useAuth();
@@ -71,6 +71,36 @@ const Sidebar = ({ handleToggle, isActive }) => {
 
                     <span className="mx-4 font-medium">User Profile</span>
                   </NavLink>
+
+                  <NavLink
+                    to="user-manage"
+                    end
+                    className={({ isActive }) =>
+                      `flex items-center px-4 py-2 my-2 transition-colors duration-300 transform hover:bg-blue-100 rounded-md hover:text-gray-700  dark:text-slate-300 ${
+                        isActive
+                          ? "border-l-8 bg-blue-100 border-l-blue-400 dark:text-slate-700 rounded-md"
+                          : "text-gray-700"
+                      }`
+                    }>
+                    <FaUserEdit className="w-5 h-5" />
+
+                    <span className="mx-4 font-medium">User Manage</span>
+                  </NavLink>
+
+                  <NavLink
+                    to="transactions"
+                    end
+                    className={({ isActive }) =>
+                      `flex items-center px-4 py-2 my-2 transition-colors duration-300 transform hover:bg-blue-100 rounded-md hover:text-gray-700  dark:text-slate-300 ${
+                        isActive
+                          ? "border-l-8 bg-blue-100 border-l-blue-400 dark:text-slate-700 rounded-md"
+                          : "text-gray-700"
+                      }`
+                    }>
+                    <FaList className="w-5 h-5" />
+
+                    <span className="mx-4 font-medium">Transactions</span>
+                  </NavLink>
                 </nav>
               </>
             )}
@@ -92,6 +122,21 @@ const Sidebar = ({ handleToggle, isActive }) => {
 
                     <span className="mx-4 font-medium">User Profile</span>
                   </NavLink>
+
+                  <NavLink
+                    to="transactions"
+                    end
+                    className={({ isActive }) =>
+                      `flex items-center px-4 py-2 my-2 transition-colors duration-300 transform hover:bg-blue-100 rounded-md hover:text-gray-700  dark:text-slate-300 ${
+                        isActive
+                          ? "border-l-8 bg-blue-100 border-l-blue-400 dark:text-slate-700 rounded-md"
+                          : "text-gray-700"
+                      }`
+                    }>
+                    <FaList className="w-5 h-5" />
+
+                    <span className="mx-4 font-medium">Transactions</span>
+                  </NavLink>
                 </nav>
               </>
             )}
@@ -112,6 +157,21 @@ const Sidebar = ({ handleToggle, isActive }) => {
                     <FaRegUser className="w-5 h-5" />
 
                     <span className="mx-4 font-medium">User Profile</span>
+                  </NavLink>
+
+                  <NavLink
+                    to="transactions"
+                    end
+                    className={({ isActive }) =>
+                      `flex items-center px-4 py-2 my-2 transition-colors duration-300 transform hover:bg-blue-100 rounded-md hover:text-gray-700  dark:text-slate-300 ${
+                        isActive
+                          ? "border-l-8 bg-blue-100 border-l-blue-400 dark:text-slate-700 rounded-md"
+                          : "text-gray-700"
+                      }`
+                    }>
+                    <FaList className="w-5 h-5" />
+
+                    <span className="mx-4 font-medium">Transactions</span>
                   </NavLink>
                 </nav>
               </>

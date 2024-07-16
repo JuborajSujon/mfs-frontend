@@ -5,6 +5,8 @@ import Login from "./../components/Login";
 import Register from "../components/Register";
 import Dashboard from "../Layout/Dashboard";
 import UserProfile from "../pages/Dashboard/UserProfile";
+import Transactions from "../pages/Dashboard/Transactions";
+import ManageUsers from "../pages/Dashboard/AdminPage/ManageUsers";
 
 // TODO: Dashboard Routes Protection
 
@@ -32,6 +34,14 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <UserProfile />,
+      },
+      {
+        path: "/dashboard/user-manage",
+        element: <ManageUsers />,
+      },
+      {
+        path: "/dashboard/transactions",
+        element: <Transactions />,
       },
     ],
   },
