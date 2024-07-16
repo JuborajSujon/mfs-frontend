@@ -4,11 +4,12 @@ import { useForm } from "react-hook-form";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
-import axios from "axios";
+import useAxiosPublic from "./../hooks/useAxiosPublic";
 
 const Register = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const {
     register,
@@ -17,7 +18,7 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  // Register Handler for create user , update user profile
+  // Register Handler for create user
   const onSubmit = async (data) => {
     try {
       const { email, password, name, phoneNumber, role } = data;
@@ -33,7 +34,7 @@ const Register = () => {
       }
 
       if (!/^[0-9]{11}$/.test(mobileNumber)) {
-        toast.error("Mobile number should be 10 digits only numbers", {
+        toast.error("Mobile number should be 11 digits only numbers", {
           autoClose: 2000,
         });
         return;
@@ -51,10 +52,7 @@ const Register = () => {
         createdAt: new Date().getTime(),
       };
 
-      const result = await axios.put(
-        "http://localhost:5000/auth/register",
-        userInfo
-      );
+      const result = await axiosPublic.put("/register", userInfo);
 
       if (!result.data.acknowledged) {
         toast.error(result.data.message, {
@@ -184,7 +182,7 @@ const Register = () => {
                         )}
                       </div>
                     </div>
-                    {errors.pin && (
+                    {errors.password && (
                       <span className="text-red-500">
                         Please enter a valid PIN
                       </span>
@@ -210,7 +208,7 @@ const Register = () => {
                   <div className="mb-4">
                     <button
                       type="submit"
-                      className="btn text-base bg-green-600 hover:bg-green-700 text-white rounded-md w-full">
+                      className="btn text-base bg-blue-600 hover:bg-blue-700 text-white rounded-md w-full">
                       Register / Sign up
                     </button>
                   </div>

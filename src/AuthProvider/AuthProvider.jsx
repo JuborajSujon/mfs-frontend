@@ -1,12 +1,13 @@
 import PropTypes from "prop-types";
 import { createContext, useState } from "react";
-import axios from "axios";
 
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  console.log("user", user);
 
   const authInfo = { user, setUser, loading, setLoading };
 
