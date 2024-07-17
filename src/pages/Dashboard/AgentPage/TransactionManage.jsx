@@ -57,46 +57,28 @@ const TransactionManage = () => {
   };
 
   // handle make profile active
-  const handleMakeApprove = async (email) => {
-    if (!email) return;
+  const handleMakeApprove = async (id) => {
+    if (!id) return;
 
     try {
-      const res = await axiosSecure.patch(`/agent/approve/${email}`, {
-        status: "active",
+      const res = await axiosSecure.patch(`/agent/approve/${id}`, {
+        status: "success",
       });
 
-      if (res.data.modifiedCount) {
-        toast.success("User Profile Active Successful", {
+      if (res.data.acknowledged) {
+        toast.success(res.data.message, {
           autoClose: 1500,
         });
         setUpdateStatus(!updateStatus);
       }
     } catch (err) {
       console.log(err);
-      toast.error(err.message);
-    }
-  };
-
-  // handle remove admin
-  const handleMakeReject = async (email) => {
-    if (!email) return;
-
-    // remove admin
-    try {
-      const res = await axiosSecure.patch(`/agent/reject/${email}`, {
-        status: "block",
+      toast.error(err.response.data.message, {
+        autoClose: 1500,
       });
-      if (res.data.modifiedCount) {
-        toast.success("User Profile block successful", {
-          autoClose: 1500,
-        });
-        setUpdateStatus(!updateStatus);
-      }
-    } catch (err) {
-      console.log(err);
-      toast.error(err.message);
     }
   };
+
   return (
     <div className="relative h-full">
       <Helmet>
@@ -161,13 +143,10 @@ const TransactionManage = () => {
                         <p>{user?.transactionId}</p>
                       </td>
                       <td className="p-3 text-nowrap">
-                        <p>{user?.requesterName || user?.senderName}</p>
+                        <p>{user?.senderName}</p>
                       </td>
                       <td className="p-3 text-nowrap">
-                        <p>
-                          {user?.requesterMobileNumber ||
-                            user?.senderMobileNumber}
-                        </p>
+                        <p>{user?.senderMobileNumber}</p>
                       </td>
                       <td className="p-3">
                         <p>{user?.transactionMethod}</p>
@@ -187,14 +166,9 @@ const TransactionManage = () => {
 
                       <td className="p-3 flex gap-2">
                         <button
-                          onClick={() => handleMakeApprove(user.email)}
+                          onClick={() => handleMakeApprove(user?._id)}
                           className="px-3 py-1 font-semibold text-nowrap rounded-md bg-blue-600 text-gray-50">
                           Approve
-                        </button>
-                        <button
-                          onClick={() => handleMakeReject(user.email)}
-                          className="px-3 py-1 font-semibold text-nowrap rounded-md bg-red-600 text-gray-50">
-                          Reject
                         </button>
                       </td>
                     </tr>
