@@ -8,6 +8,7 @@ import UserProfile from "../pages/Dashboard/UserProfile";
 import Transactions from "../pages/Dashboard/Transactions";
 import ManageUsers from "../pages/Dashboard/AdminPage/ManageUsers";
 import BalanceInquiry from "../pages/Dashboard/BalanceInquiry";
+import SendMoney from "../pages/Dashboard/UserPage/SendMoney";
 
 // TODO: Dashboard Routes Protection
 
@@ -48,6 +49,11 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/balance",
         element: <BalanceInquiry />,
+      },
+
+      {
+        path: "/dashboard/send-money",
+        element: <SendMoney />,
       },
     ],
   },

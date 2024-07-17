@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import PropTypes from "prop-types";
 import { FaRegUser, FaList, FaUserEdit, FaMoneyCheck } from "react-icons/fa";
+import { MdSendToMobile } from "react-icons/md";
 
 const Sidebar = ({ handleToggle, isActive }) => {
   const { user, setLoading, setUser } = useAuth();
@@ -140,6 +141,21 @@ const Sidebar = ({ handleToggle, isActive }) => {
                     <FaMoneyCheck className="w-5 h-5" />
 
                     <span className="mx-4 font-medium">Balance Inquiry</span>
+                  </NavLink>
+
+                  <NavLink
+                    to="send-money"
+                    end
+                    className={({ isActive }) =>
+                      `flex items-center px-4 py-2 my-2 transition-colors duration-300 transform hover:bg-blue-100 rounded-md hover:text-gray-700  dark:text-slate-300 ${
+                        isActive
+                          ? "border-l-8 bg-blue-100 border-l-blue-400 dark:text-slate-700 rounded-md"
+                          : "text-gray-700"
+                      }`
+                    }>
+                    <MdSendToMobile className="w-5 h-5" />
+
+                    <span className="mx-4 font-medium">Send Money</span>
                   </NavLink>
 
                   <NavLink

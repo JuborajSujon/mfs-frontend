@@ -1,17 +1,15 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
+import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
-import useAxiosPublic from "./../hooks/useAxiosPublic";
-import useAuth from "./../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth";
 
-const Login = () => {
+const SendMoney = () => {
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-  const axiosPublic = useAxiosPublic();
-  const { setUser, setLoading } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
 
   const {
     register,
@@ -20,84 +18,68 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  // Login Handler
   const onSubmit = async (data) => {
     try {
-      const { emailphone, password } = data;
+      const { amount, recipient, password } = data;
 
-      const pin = parseInt(password);
-      if (!/^[0-9]{5}$/.test(pin)) {
-        toast.error("PIN should be 5 digits only numbers", {
-          autoClose: 2000,
+      // validate amount
+      const sendAmount = Number(amount);
+
+      if (!(typeof sendAmount === "number")) {
+        toast.error("Please enter a valid amount", {
+          autoClose: 1500,
         });
         return;
       }
 
-      let userId;
+      if (!(sendAmount >= 50)) {
+        toast.error("Minimum transaction amount is 50 Taka", {
+          autoClose: 1500,
+        });
+        return;
+      }
 
-      if (emailphone.includes("@")) {
-        const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      // validate recipient
+      const recipientNumber = Number(recipient.trim());
+      if (!/^[0-9]{11}$/.test(recipientNumber)) {
+        toast.error("Please enter a valid phone number", {
+          autoClose: 1500,
+        });
+        return;
+      }
 
-        if (!emailPattern.test(emailphone)) {
-          toast.error("Please enter a valid email address", {
-            autoClose: 2000,
-          });
-          return;
-        }
-        userId = emailphone;
-      } else {
-        const phonePattern = /^[0-9]{11}$/;
-
-        if (!phonePattern.test(emailphone)) {
-          toast.error("Please enter a valid phone number", {
-            autoClose: 2000,
-          });
-          return;
-        }
-
-        userId = emailphone;
+      // validate password
+      const pin = parseInt(password);
+      if (!/^[0-9]{5}$/.test(pin)) {
+        toast.error("PIN should be 5 digits only numbers", {
+          autoClose: 1500,
+        });
+        return;
       }
 
       const userInfo = {
-        phoneOrEmail: userId,
+        userEmail: user?.email,
+        amount: sendAmount,
+        recipient: recipientNumber,
         pin,
       };
+      const response = await axiosSecure.post("/user/send-money", userInfo);
 
-      const result = await axiosPublic.post("/login", userInfo);
-
-      if (result.data._id) {
-        const jwt = await axiosPublic.post("/jwt", {
-          email: result.data.email,
+      if (response.data.acknowledged) {
+        toast.success(response.data.message, {
+          autoClose: 1500,
         });
-
-        if (jwt.data.token) {
-          localStorage.setItem("access-token", jwt.data.token);
-
-          localStorage.setItem("user", JSON.stringify(result.data));
-
-          setUser(result.data);
-
-          setLoading(false);
-
-          toast.success("Logged in successfully", {
-            autoClose: 1500,
-          });
-          reset();
-          navigate("/dashboard");
-        } else {
-          localStorage.removeItem("access-token");
-          setLoading(false);
-        }
+        reset();
       }
     } catch (error) {
       console.error(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
-
   return (
     <section>
       <Helmet>
-        <title>Login | Fast Pay</title>
+        <title>Fast Pay | Login</title>
       </Helmet>
       <section className="py-16 sm:pt-20 sm:pb-36 flex items-center relative overflow-hidden">
         <div className="container mx-auto relative z-3 animate__animated animate__zoomIn">
@@ -106,27 +88,48 @@ const Login = () => {
               <img src="logo.png" className="mx-auto w-12" alt="" />
 
               <h5 className="my-4 text-xl text-slate-700 dark:text-slate-900 font-semibold">
-                Login
+                Send Money To
               </h5>
               <form className="text-start" onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid grid-cols-1">
-                  {/** Email or Phone */}
+                  {/** Recipient Mobile Number */}
                   <div className="mb-3 flex flex-col">
                     <label
                       className="font-medium text-slate-500 dark:text-slate-900"
-                      htmlFor="LoginEmail">
-                      Email or Phone
+                      htmlFor="phoneNumber">
+                      Recipient Mobile Number
                     </label>
                     <input
-                      {...register("emailphone", { required: true })}
-                      id="LoginEmail"
-                      type="text"
+                      {...register("recipient", { required: true })}
+                      id="phoneNumber"
+                      type="number"
                       className="w-full border-2 border-slate-100 p-1 rounded-md dark:bg-transparent dark:border-black/40 dark:text-slate-900 py-2 mt-3"
-                      placeholder="Enter Email or Phone Number"
+                      placeholder="Mobile Number"
                     />
-                    {errors.emailphone && (
+                    {errors.recipient && (
                       <span className="text-red-500">
-                        Please enter a valid email
+                        Please enter a valid phone number
+                      </span>
+                    )}
+                  </div>
+
+                  {/** Amount */}
+                  <div className="mb-3 flex flex-col">
+                    <label
+                      className="font-medium text-slate-500 dark:text-slate-900"
+                      htmlFor="sendAmount">
+                      Sending Amount
+                    </label>
+                    <input
+                      {...register("amount", { required: true })}
+                      id="sendAmount"
+                      type="number"
+                      className="w-full border-2 border-slate-100 p-1 rounded-md dark:bg-transparent dark:border-black/40 dark:text-slate-900 py-2 mt-3"
+                      placeholder="Mobile Number"
+                    />
+                    {errors.amount && (
+                      <span className="text-red-500">
+                        Please enter a valid amount
                       </span>
                     )}
                   </div>
@@ -136,7 +139,7 @@ const Login = () => {
                     <label
                       className="font-medium text-slate-500 dark:text-slate-900"
                       htmlFor="LoginPIN">
-                      PIN
+                      Your PIN
                     </label>
                     <div className="relative">
                       <input
@@ -172,19 +175,9 @@ const Login = () => {
                     <button
                       type="submit"
                       className="btn text-base bg-blue-600 hover:bg-blue-700 text-white rounded-md w-full">
-                      Login
+                      Send Money
                     </button>
                   </div>
-                </div>
-                <div className="text-center">
-                  <span className="text-slate-400 me-2">
-                    Don't have an account?
-                  </span>{" "}
-                  <Link
-                    to={"/register"}
-                    className="text-slate-500 dark:text-slate-900 font-bold">
-                    Register
-                  </Link>
                 </div>
               </form>
             </div>
@@ -195,4 +188,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SendMoney;
