@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import PropTypes from "prop-types";
-import { FaRegUser, FaList, FaUserEdit } from "react-icons/fa";
+import { FaRegUser, FaList, FaUserEdit, FaMoneyCheck } from "react-icons/fa";
 
 const Sidebar = ({ handleToggle, isActive }) => {
   const { user, setLoading, setUser } = useAuth();
@@ -137,7 +137,7 @@ const Sidebar = ({ handleToggle, isActive }) => {
                           : "text-gray-700"
                       }`
                     }>
-                    <FaList className="w-5 h-5" />
+                    <FaMoneyCheck className="w-5 h-5" />
 
                     <span className="mx-4 font-medium">Balance Inquiry</span>
                   </NavLink>
@@ -188,7 +188,7 @@ const Sidebar = ({ handleToggle, isActive }) => {
                           : "text-gray-700"
                       }`
                     }>
-                    <FaList className="w-5 h-5" />
+                    <FaMoneyCheck className="w-5 h-5" />
 
                     <span className="mx-4 font-medium">Balance Inquiry</span>
                   </NavLink>

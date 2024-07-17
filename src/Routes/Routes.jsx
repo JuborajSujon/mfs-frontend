@@ -7,6 +7,7 @@ import Dashboard from "../Layout/Dashboard";
 import UserProfile from "../pages/Dashboard/UserProfile";
 import Transactions from "../pages/Dashboard/Transactions";
 import ManageUsers from "../pages/Dashboard/AdminPage/ManageUsers";
+import BalanceInquiry from "../pages/Dashboard/BalanceInquiry";
 
 // TODO: Dashboard Routes Protection
 
@@ -42,6 +43,11 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/transactions",
         element: <Transactions />,
+      },
+
+      {
+        path: "/dashboard/balance",
+        element: <BalanceInquiry />,
       },
     ],
   },

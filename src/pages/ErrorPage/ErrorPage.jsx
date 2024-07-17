@@ -34,7 +34,7 @@ const ErrorPage = () => {
             <div className="flex flex-col min-h-screen justify-center md:px-10 py-10 px-4">
               <div className="text-center">
                 <Link to={"/"}>
-                  <img src={logo} className="mx-auto w-64" alt="" />
+                  <img src={logo} className="mx-auto w-24" alt="" />
                 </Link>
               </div>
               <div className=" text-center my-auto ">
@@ -64,7 +64,7 @@ const ErrorPage = () => {
                   className="mx-auto"
                   alt=""
                 /> */}
-                <h1 className="mt-3 mb-6 md:text-4xl text-3xl font-bold ">
+                <h1 className="mt-3 mb-6 md:text-2xl text-xl font-bold ">
                   {error?.data}
                 </h1>
                 <p className="my-10 text-red-500 text-xl">
