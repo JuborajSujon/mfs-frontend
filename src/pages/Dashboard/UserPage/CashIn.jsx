@@ -7,7 +7,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 
-const CashOut = () => {
+const CashIn = () => {
   const [password, setPassword] = useState("");
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
@@ -57,7 +57,7 @@ const CashOut = () => {
         recipient: recipientNumber,
         pin,
       };
-      const response = await axiosSecure.post("/user/cash-out", userInfo);
+      const response = await axiosSecure.post("/user/cash-in", userInfo);
 
       if (response.data.acknowledged) {
         toast.success(response.data.message, {
@@ -73,10 +73,10 @@ const CashOut = () => {
   return (
     <section>
       <Helmet>
-        <title>Cash Out | Fast Pay</title>
+        <title>Cash In | Fast Pay</title>
       </Helmet>
 
-      <SectionTitle title="Cash Out" />
+      <SectionTitle title="Cash In" />
       <section className="py-16 sm:pt-20 sm:pb-36 flex items-center relative overflow-hidden">
         <div className="container mx-auto relative z-3 animate__animated animate__zoomIn">
           <div className="flex justify-center">
@@ -84,7 +84,7 @@ const CashOut = () => {
               <img src="logo.png" className="mx-auto w-12" alt="" />
 
               <h5 className="my-4 text-xl text-slate-700 dark:text-slate-900 font-semibold">
-                Cash Out From Agent Account
+                Cash In Request To Agent Account
               </h5>
               <form className="text-start" onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid grid-cols-1">
@@ -93,7 +93,7 @@ const CashOut = () => {
                     <label
                       className="font-medium text-slate-500 dark:text-slate-900"
                       htmlFor="phoneNumber">
-                      Recipient Mobile Number
+                      Agent Mobile Number
                     </label>
                     <input
                       {...register("recipient", { required: true })}
@@ -114,14 +114,14 @@ const CashOut = () => {
                     <label
                       className="font-medium text-slate-500 dark:text-slate-900"
                       htmlFor="sendAmount">
-                      Cash Out Amount
+                      Cash In Amount
                     </label>
                     <input
                       {...register("amount", { required: true })}
                       id="sendAmount"
                       type="number"
                       className="w-full border-2 border-slate-100 p-1 rounded-md dark:bg-transparent dark:border-black/40 dark:text-slate-900 py-2 mt-3"
-                      placeholder="Enter Cash Out Amount"
+                      placeholder="Enter Cash In Amount"
                     />
                     {errors.amount && (
                       <span className="text-red-500">
@@ -171,7 +171,7 @@ const CashOut = () => {
                     <button
                       type="submit"
                       className="btn text-base bg-blue-600 hover:bg-blue-700 text-white rounded-md w-full">
-                      Cash Out
+                      Cash In
                     </button>
                   </div>
                 </div>
@@ -184,4 +184,4 @@ const CashOut = () => {
   );
 };
 
-export default CashOut;
+export default CashIn;
