@@ -73,7 +73,7 @@ const Login = () => {
         if (jwt.data.token) {
           localStorage.setItem("access-token", jwt.data.token);
 
-          setUser(result.data);
+          localStorage.setItem("user", JSON.stringify(result.data));
 
           setLoading(false);
 

@@ -13,6 +13,7 @@ const Sidebar = ({ handleToggle, isActive }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("access-token");
+    localStorage.removeItem("user");
     setLoading(true);
     navigate("/");
   };
@@ -179,7 +180,7 @@ const Sidebar = ({ handleToggle, isActive }) => {
           </div>
         </div>
 
-        <div>
+        <div className="">
           <hr />
 
           {/* Profile Menu */}
