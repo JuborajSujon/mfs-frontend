@@ -4,12 +4,15 @@ import PropTypes from "prop-types";
 import useAuth from "../../../hooks/useAuth";
 
 const DashboardNav = ({ handleToggle }) => {
-  const { user } = useAuth();
+  const { user, setLoading, setUser } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("access-token");
+
+    setUser(null);
     localStorage.removeItem("user");
+    setLoading(true);
     navigate("/");
   };
 

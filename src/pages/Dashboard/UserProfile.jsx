@@ -34,7 +34,8 @@ const UserProfile = () => {
               <span className="font-bold">User Role:</span> {user?.role}
             </p>
             <p className="text-xs sm:text-base text-gray-600">
-              <span className="font-bold">User Balance:</span> {user?.balance}
+              <span className="font-bold">User Balance:</span> {user?.balance}{" "}
+              Taka
             </p>
           </div>
         </div>

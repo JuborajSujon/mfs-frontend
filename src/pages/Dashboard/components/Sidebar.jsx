@@ -6,14 +6,17 @@ import PropTypes from "prop-types";
 import { FaRegUser, FaList, FaUserEdit } from "react-icons/fa";
 
 const Sidebar = ({ handleToggle, isActive }) => {
-  const { user, setLoading } = useAuth();
+  const { user, setLoading, setUser } = useAuth();
   const navigate = useNavigate();
 
   // TODO:Logout Handler
 
   const handleLogout = () => {
     localStorage.removeItem("access-token");
+
+    setUser(null);
     localStorage.removeItem("user");
+
     setLoading(true);
     navigate("/");
   };
@@ -125,6 +128,21 @@ const Sidebar = ({ handleToggle, isActive }) => {
                   </NavLink>
 
                   <NavLink
+                    to="balance"
+                    end
+                    className={({ isActive }) =>
+                      `flex items-center px-4 py-2 my-2 transition-colors duration-300 transform hover:bg-blue-100 rounded-md hover:text-gray-700  dark:text-slate-300 ${
+                        isActive
+                          ? "border-l-8 bg-blue-100 border-l-blue-400 dark:text-slate-700 rounded-md"
+                          : "text-gray-700"
+                      }`
+                    }>
+                    <FaList className="w-5 h-5" />
+
+                    <span className="mx-4 font-medium">Balance Inquiry</span>
+                  </NavLink>
+
+                  <NavLink
                     to="transactions"
                     end
                     className={({ isActive }) =>
@@ -161,6 +179,21 @@ const Sidebar = ({ handleToggle, isActive }) => {
                   </NavLink>
 
                   <NavLink
+                    to="balance"
+                    end
+                    className={({ isActive }) =>
+                      `flex items-center px-4 py-2 my-2 transition-colors duration-300 transform hover:bg-blue-100 rounded-md hover:text-gray-700  dark:text-slate-300 ${
+                        isActive
+                          ? "border-l-8 bg-blue-100 border-l-blue-400 dark:text-slate-700 rounded-md"
+                          : "text-gray-700"
+                      }`
+                    }>
+                    <FaList className="w-5 h-5" />
+
+                    <span className="mx-4 font-medium">Balance Inquiry</span>
+                  </NavLink>
+
+                  <NavLink
                     to="transactions"
                     end
                     className={({ isActive }) =>
@@ -181,7 +214,7 @@ const Sidebar = ({ handleToggle, isActive }) => {
         </div>
 
         <div className="">
-          <hr />
+          <hr className="border-blue-300 border-2" />
 
           {/* Profile Menu */}
 
