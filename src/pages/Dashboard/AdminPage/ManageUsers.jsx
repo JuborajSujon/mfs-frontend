@@ -56,15 +56,15 @@ export default function ManageUsers() {
     setCurrentPage(1);
   };
 
-  // handle make admin
+  // handle make profile active
   const handleMakeActive = async (email) => {
     if (!email) return;
 
-    // make admin
     try {
       const res = await axiosSecure.patch(`/users/admin/${email}`, {
         status: "active",
       });
+
       if (res.data.modifiedCount) {
         toast.success("User Profile Active Successful", {
           autoClose: 1500,
