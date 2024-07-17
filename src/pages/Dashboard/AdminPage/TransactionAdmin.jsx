@@ -1,11 +1,29 @@
 import { Helmet } from "react-helmet-async";
-import SectionTitle from "../../components/SectionTitle/SectionTitle";
+import { useEffect, useState } from "react";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 
-const Transactions = () => {
+const TransactionAdmin = () => {
+  const [transactions, setTransactions] = useState([]);
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+
+  useEffect(() => {
+    const getData = async () => {
+      const res = await axiosSecure.get(`/admin/transactions`);
+      setTransactions(res.data);
+    };
+    if (user) {
+      getData();
+    }
+  }, [axiosSecure, user]);
+
+  console.log(transactions);
   return (
     <div>
       <Helmet>
-        <title>Transaction | Dashboard</title>
+        <title>Transaction | Admin Dashboard</title>
       </Helmet>
       <div>
         <SectionTitle title="Transaction History" />
@@ -40,4 +58,4 @@ const Transactions = () => {
   );
 };
 
-export default Transactions;
+export default TransactionAdmin;

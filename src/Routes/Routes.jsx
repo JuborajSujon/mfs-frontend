@@ -5,7 +5,7 @@ import Login from "./../components/Login";
 import Register from "../components/Register";
 import Dashboard from "../Layout/Dashboard";
 import UserProfile from "../pages/Dashboard/UserProfile";
-import Transactions from "../pages/Dashboard/Transactions";
+import Transactions from "../pages/Dashboard/UserPage/TransactionsUser";
 import ManageUsers from "../pages/Dashboard/AdminPage/ManageUsers";
 import BalanceInquiry from "../pages/Dashboard/BalanceInquiry";
 import SendMoney from "../pages/Dashboard/UserPage/SendMoney";
