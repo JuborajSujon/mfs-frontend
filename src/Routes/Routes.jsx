@@ -11,6 +11,7 @@ import BalanceInquiry from "../pages/Dashboard/BalanceInquiry";
 import SendMoney from "../pages/Dashboard/UserPage/SendMoney";
 import CashOut from "../pages/Dashboard/UserPage/CashOut";
 import CashIn from "../pages/Dashboard/UserPage/CashIn";
+import TransactionManage from "../pages/Dashboard/AgentPage/TransactionManage";
 
 // TODO: Dashboard Routes Protection
 
@@ -65,6 +66,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/cash-in",
         element: <CashIn />,
+      },
+      {
+        path: "/dashboard/cash-manage",
+        element: <TransactionManage />,
       },
     ],
   },
