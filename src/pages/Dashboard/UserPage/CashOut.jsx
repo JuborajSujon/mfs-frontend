@@ -7,7 +7,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 
-const SendMoney = () => {
+const CashOut = () => {
   const [password, setPassword] = useState("");
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
@@ -28,13 +28,6 @@ const SendMoney = () => {
 
       if (!(typeof sendAmount === "number")) {
         toast.error("Please enter a valid amount", {
-          autoClose: 1500,
-        });
-        return;
-      }
-
-      if (!(sendAmount >= 50)) {
-        toast.error("Minimum transaction amount is 50 Taka", {
           autoClose: 1500,
         });
         return;
@@ -64,7 +57,7 @@ const SendMoney = () => {
         recipient: recipientNumber,
         pin,
       };
-      const response = await axiosSecure.post("/user/send-money", userInfo);
+      const response = await axiosSecure.post("/user/cash-out", userInfo);
 
       if (response.data.acknowledged) {
         toast.success(response.data.message, {
@@ -80,10 +73,10 @@ const SendMoney = () => {
   return (
     <section>
       <Helmet>
-        <title>Send Money | Fast Pay</title>
+        <title>Cash Out | Fast Pay</title>
       </Helmet>
 
-      <SectionTitle title="Send Money" />
+      <SectionTitle title="Cash Out" />
       <section className="py-16 sm:pt-20 sm:pb-36 flex items-center relative overflow-hidden">
         <div className="container mx-auto relative z-3 animate__animated animate__zoomIn">
           <div className="flex justify-center">
@@ -91,7 +84,7 @@ const SendMoney = () => {
               <img src="logo.png" className="mx-auto w-12" alt="" />
 
               <h5 className="my-4 text-xl text-slate-700 dark:text-slate-900 font-semibold">
-                Send Money To User Account
+                Cash Out Fron Agent Account
               </h5>
               <form className="text-start" onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid grid-cols-1">
@@ -121,14 +114,14 @@ const SendMoney = () => {
                     <label
                       className="font-medium text-slate-500 dark:text-slate-900"
                       htmlFor="sendAmount">
-                      Sending Amount
+                      Cash Out Amount
                     </label>
                     <input
                       {...register("amount", { required: true })}
                       id="sendAmount"
                       type="number"
                       className="w-full border-2 border-slate-100 p-1 rounded-md dark:bg-transparent dark:border-black/40 dark:text-slate-900 py-2 mt-3"
-                      placeholder="Enter Sending Amount"
+                      placeholder="Enter Cash Out Amount"
                     />
                     {errors.amount && (
                       <span className="text-red-500">
@@ -178,7 +171,7 @@ const SendMoney = () => {
                     <button
                       type="submit"
                       className="btn text-base bg-blue-600 hover:bg-blue-700 text-white rounded-md w-full">
-                      Send Money
+                      Cash Out
                     </button>
                   </div>
                 </div>
@@ -191,4 +184,4 @@ const SendMoney = () => {
   );
 };
 
-export default SendMoney;
+export default CashOut;
