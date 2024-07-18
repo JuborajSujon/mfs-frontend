@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth";
 
 const TransactionManage = () => {
   const [loading, setLoading] = useState(true);
@@ -16,10 +17,12 @@ const TransactionManage = () => {
 
   const axiosSecure = useAxiosSecure();
 
+  const { user } = useAuth();
+
   useEffect(() => {
     const getData = async () => {
       const res = await axiosSecure.get(
-        `/cash-manage?page=${currentPage}&size=${itemsPerPage}&search=${search}`
+        `/cash-manage?page=${currentPage}&size=${itemsPerPage}&search=${search}&mobileNumber=${user?.mobileNumber}`
       );
 
       setAllUsers(res.data);
@@ -34,6 +37,7 @@ const TransactionManage = () => {
     search,
     searchText,
     updateStatus,
+    user?.mobileNumber,
   ]);
 
   const numberOfPages = Math.ceil(allUsers.count / itemsPerPage);

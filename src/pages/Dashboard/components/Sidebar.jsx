@@ -257,7 +257,7 @@ const Sidebar = ({ handleToggle, isActive }) => {
                   </NavLink>
 
                   <NavLink
-                    to="transactions"
+                    to="agent-transactions"
                     end
                     className={({ isActive }) =>
                       `flex items-center px-4 py-2 my-2 transition-colors duration-300 transform hover:bg-blue-100 rounded-md hover:text-gray-700  dark:text-slate-300 ${
