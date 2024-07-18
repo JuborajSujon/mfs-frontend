@@ -17,7 +17,7 @@ const TransactionManage = () => {
 
   const axiosSecure = useAxiosSecure();
 
-  const { user } = useAuth();
+  const { user, reload, setReload } = useAuth();
 
   useEffect(() => {
     const getData = async () => {
@@ -74,6 +74,7 @@ const TransactionManage = () => {
           autoClose: 1500,
         });
         setUpdateStatus(!updateStatus);
+        setReload(!reload);
       }
     } catch (err) {
       console.log(err);

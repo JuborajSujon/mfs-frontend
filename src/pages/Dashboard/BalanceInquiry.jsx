@@ -3,7 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 
 const BalanceInquiry = () => {
-  const { user } = useAuth();
+  const { currentUser, reload } = useAuth();
   return (
     <div>
       <Helmet>
@@ -17,7 +17,7 @@ const BalanceInquiry = () => {
       <div>
         <h1 className="text-2xl font-medium text-slate-900 dark:text-slate-300 ">
           Your Current Balance:{" "}
-          <span className="text-blue-400">{user?.balance}</span> Taka{" "}
+          <span className={`text-blue-400`}>{currentUser?.balance}</span> Taka{" "}
         </h1>
       </div>
     </div>
