@@ -5,7 +5,6 @@ import Login from "./../components/Login";
 import Register from "../components/Register";
 import Dashboard from "../Layout/Dashboard";
 import UserProfile from "../pages/Dashboard/UserProfile";
-import Transactions from "../pages/Dashboard/UserPage/TransactionsUser";
 import ManageUsers from "../pages/Dashboard/AdminPage/ManageUsers";
 import BalanceInquiry from "../pages/Dashboard/BalanceInquiry";
 import SendMoney from "../pages/Dashboard/UserPage/SendMoney";
@@ -13,6 +12,7 @@ import CashOut from "../pages/Dashboard/UserPage/CashOut";
 import CashIn from "../pages/Dashboard/UserPage/CashIn";
 import TransactionManage from "../pages/Dashboard/AgentPage/TransactionManage";
 import TransactionAgent from "../pages/Dashboard/AgentPage/TransactionAgent";
+import TransactionAdmin from "../pages/Dashboard/AdminPage/TransactionAdmin";
 
 // TODO: Dashboard Routes Protection
 
@@ -47,7 +47,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard/transactions",
-        element: <Transactions />,
+        element: <TransactionAdmin />,
       },
       {
         path: "/dashboard/balance",

@@ -19,7 +19,6 @@ const TransactionAdmin = () => {
     }
   }, [axiosSecure, user]);
 
-  console.log(transactions);
   return (
     <div>
       <Helmet>
@@ -41,15 +40,44 @@ const TransactionAdmin = () => {
               </colgroup>
               <thead className="bg-gray-300">
                 <tr className="text-left">
-                  <th className="p-3">Service Name</th>
-                  <th className="p-3 ">Price</th>
-                  <th className="p-3">Duration</th>
-                  <th className="p-3 ">Email</th>
-                  <th className="p-3 ">Transiction Id</th>
-                  <th className="p-3">Action</th>
+                  <th className="p-3">Transaction ID</th>
+                  <th className="p-3">Receiver Name</th>
+                  <th className="p-3">Receiver Number</th>
+                  <th className="p-3">Sender Name</th>
+                  <th className="p-3">Sender Number</th>
+                  <th className="p-3">Amount</th>
+                  <th className="p-3">Fee Amount</th>
+                  <th className="p-3">Total Amount</th>
+                  <th className="p-3">Transaction Method</th>
+                  <th className="p-3">Date</th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              <tbody>
+                {transactions.map((transaction) => (
+                  <tr
+                    key={transaction._id}
+                    className="border-b border-gray-200 dark:border-gray-700">
+                    <td className="p-3">{transaction.transactionId}</td>
+                    <td className="p-3 text-nowrap">
+                      {transaction.recipientName}
+                    </td>
+                    <td className="p-3">{transaction.recipient}</td>
+                    <td className="p-3 text-nowrap">
+                      {transaction.senderName}
+                    </td>
+                    <td className="p-3">{transaction.senderMobileNumber}</td>
+                    <td className="p-3">{transaction.amount}</td>
+                    <td className="p-3">{transaction.fee}</td>
+                    <td className="p-3">{`${
+                      transaction.amount + transaction.fee
+                    }`}</td>
+                    <td className="p-3">{transaction.transactionMethod}</td>
+                    <td className="p-3">{`${new Date(
+                      transaction.date
+                    ).toLocaleString()}`}</td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </div>
         </div>
